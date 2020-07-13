@@ -61,13 +61,13 @@ WHERE policy_transaction_type IN ('NEW_BUSINESS','RENEWAL_ACCEPT','CANCELLATION'
 
   measure: CFI_rate {
     type: number
-    sql: 1.0*sum(${TABLE}.cfi)/sum(${TABLE}.sale) ;;
+    sql: 1.0*sum(${TABLE}.cfi)/greatest(sum(${TABLE}.sale),1) ;;
     value_format: "0.00%"
   }
 
   measure: MTC_rate {
     type: number
-    sql: 1.0*(sum(${TABLE}.canc)-sum(${TABLE}.cfi))/sum(${TABLE}.sale) ;;
+    sql: 1.0*(sum(${TABLE}.canc)-sum(${TABLE}.cfi))/greatest(sum(${TABLE}.sale),1) ;;
     value_format: "0.00%"
   }
   }
