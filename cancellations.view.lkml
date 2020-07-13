@@ -83,7 +83,7 @@ FROM (SELECT scheme,
 
   measure: cancellations {
     type: number
-    sql: sum(${TABLE}.canc) ;;
+    sql: sum(${TABLE}.all_cancelled) ;;
   }
 
   measure: CFIs {
@@ -93,7 +93,7 @@ FROM (SELECT scheme,
 
   measure: mtcs {
     type: number
-    sql: sum(${TABLE}.canc)-sum(${TABLE}.cfi) ;;
+    sql: sum(${TABLE}.all_cancelled)-sum(${TABLE}.cfi) ;;
   }
 
   measure: CFI_rate {
@@ -104,13 +104,13 @@ FROM (SELECT scheme,
 
   measure: MTC_rate {
     type: number
-    sql: 1.0*(sum(${TABLE}.canc)-sum(${TABLE}.cfi))/greatest(sum(${TABLE}.sale),1) ;;
+    sql: 1.0*(sum(${TABLE}.all_cancelled)-sum(${TABLE}.cfi))/greatest(sum(${TABLE}.sale),1) ;;
     value_format: "0.00%"
   }
 
   measure: total_cancellation_rate {
     type: number
-    sql: 1.0*(sum(${TABLE}.canc))/greatest(sum(${TABLE}.sale),1) ;;
+    sql: 1.0*(sum(${TABLE}.all_cancelled))/greatest(sum(${TABLE}.sale),1) ;;
     value_format: "0.00%"
   }
   }
