@@ -76,6 +76,11 @@ FROM (SELECT scheme,
     sql: ${TABLE}.dev_month ;;
   }
 
+  dimension: Latest_flag{
+    type: number
+    sql: case when ${TABLE}.dev_month = 12 then 1 when canc_date =  date_trunc('month',to_date (sysdate)) then 1 else 0 end;;
+  }
+
   measure: sales {
     type: number
     sql: sum(${TABLE}.sale) ;;
