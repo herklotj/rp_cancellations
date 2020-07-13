@@ -4,7 +4,7 @@ view: cancellations {
        date_trunc('month',to_date (term_inception_date)) AS incep_month,
        CASE
          WHEN policy_transaction_type = 'CANCELLATION' THEN date_trunc ('month',to_date (transaction_period_start_date))
-         ELSE NULL
+         ELSE  date_trunc ('month',to_date (transaction_period_end_date))
        END AS canc_month,
        CASE
          WHEN policy_transaction_type IN ('NEW_BUSINESS','RENEWAL_ACCEPT') THEN 1
@@ -35,9 +35,14 @@ WHERE policy_transaction_type IN ('NEW_BUSINESS','RENEWAL_ACCEPT','CANCELLATION'
 
   dimension_group: Inception_Month {
     type: time
-    timeframes: [      date
-    ]
+    timeframes: [month]
     sql: to_timestamp(${TABLE}.incep_month) ;;
+  }
+
+  dimension_group: Cancellation_Month {
+    type: time
+    timeframes: [month]
+    sql: to_timestamp(${TABLE}.canc_month) ;;
   }
 
   measure: sales {
