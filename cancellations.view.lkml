@@ -88,6 +88,11 @@ FROM (SELECT c.scheme,
     sql: ${TABLE}.scheme ;;
     }
 
+  dimension: Policy_Type{
+    type:  string
+    sql: ${TABLE}.trans_type ;;
+  }
+
   dimension_group: Inception_Month {
     type: time
     timeframes: [month]
