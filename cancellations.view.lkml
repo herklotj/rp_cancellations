@@ -155,8 +155,6 @@ FROM (SELECT c.scheme,
               AND c.channel = a.channel
               AND c.origin = a.origin
               AND c.payment_method = a.payment_method) t
-
-
 ;;
 }
   dimension: Scheme {
@@ -167,6 +165,26 @@ FROM (SELECT c.scheme,
   dimension: Policy_Type{
     type:  string
     sql: ${TABLE}.trans_type ;;
+  }
+
+  dimension: aauicl_tenure{
+    type:  string
+    sql: ${TABLE}.aauicl_tenure ;;
+  }
+
+  dimension: Channel_at_NB{
+    type:  string
+    sql: ${TABLE}.channel ;;
+  }
+
+  dimension: Origin{
+    type:  string
+    sql: ${TABLE}.origin ;;
+  }
+
+  dimension: payment_method{
+    type:  string
+    sql: ${TABLE}.payment_method ;;
   }
 
   dimension_group: Inception_Month {
