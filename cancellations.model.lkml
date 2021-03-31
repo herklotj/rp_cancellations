@@ -13,3 +13,4 @@ persist_with: cancellations_default_datagroup
 
 explore: cancellations {}
 explore: lk_m_cancel_history {}
+explore: lk_m_policy_history_written {}
