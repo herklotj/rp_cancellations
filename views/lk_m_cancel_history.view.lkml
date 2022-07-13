@@ -388,6 +388,16 @@ WHERE cancel_effective_dttm_t IS NOT NULL
     sql: ${TABLE}.cancel_reason_desc_raw ;;
   }
 
+  dimension: cancel_reason_gfsc {
+    type: string
+    sql: ${TABLE}.cancel_reason_gfsc ;;
+  }
+
+  dimension: cancel_coolingoff_gfsc {
+    type: string
+    sql: ${TABLE}.cancel_coolingoff_gfsc ;;
+  }
+
   dimension: cover_type {
     type: string
     sql: ${TABLE}.cover_type ;;
