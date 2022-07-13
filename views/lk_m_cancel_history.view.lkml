@@ -175,6 +175,24 @@ view: lk_m_cancel_history {
          WHEN cancel_reason = 19 THEN 'Total loss'
           ELSE 'Unknown'
        END AS cancel_reason_desc,
+       CASE
+         WHEN cancel_reason in(2,21,28) THEN 'Better terms elsewhere'
+         WHEN cancel_reason = 25 THEN 'Cancelled by firm (fraud)'
+         WHEN cancel_reason in(14,18,31,32,33,34,43,44) THEN 'Cancelled by firm (misinterpretation)'
+         WHEN cancel_reason in(4,5,46) THEN 'Cancelled by firm (significant change in risk)'
+         WHEN cancel_reason in(22,29,30,37,45) or cancel_reason is null THEN 'Cancelled by firm (unpaid premium)'
+         WHEN cancel_reason = 10 THEN 'Deceased'
+         WHEN cancel_reason = 15 THEN 'Dissatisfication with service'
+         WHEN cancel_reason in(1,11,12,17,19,24,26) THEN 'No longer required'
+         WHEN cancel_reason in(8,9) THEN 'Not suitable for purpose'
+         WHEN cancel_reason in(3,6,7,16,20,23,35,40,41,42) THEN 'Other'
+         WHEN cancel_reason in(13,27,36) THEN 'Unwanted renewal'
+         ELSE 'Unknown'
+       END AS cancel_reason_gfsc,
+      CASE
+         WHEN cancel_reason = 24 or cancel_reason is null then 'Yes'
+         ELSE 'No'
+       END AS cancel_coolingoff_gfsc,
        policy_cancel_date_t AS policy_cancel_date,
        policy_cancel_mth_t AS policy_cancel_mth,
        policy_cancel_yr_t AS policy_cancel_yr,
