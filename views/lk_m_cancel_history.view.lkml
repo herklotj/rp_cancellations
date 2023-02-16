@@ -178,7 +178,7 @@ view: lk_m_cancel_history {
        CASE
          WHEN cancel_reason in(2,21,28) THEN 'Better terms elsewhere'
          WHEN cancel_reason = 25 THEN 'Cancelled by firm (fraud)'
-         WHEN cancel_reason in(14,18,31,32,33,34,43,44) THEN 'Cancelled by firm (misinterpretation)'
+         WHEN cancel_reason in(14,18,31,32,33,34,43,44) THEN 'Cancelled by firm (careless misrepresentation)'
          WHEN cancel_reason in(4,5,46) THEN 'Cancelled by firm (significant change in risk)'
          WHEN cancel_reason in(22,29,30,37,45) or cancel_reason is null THEN 'Cancelled by firm (unpaid premium)'
          WHEN cancel_reason = 10 THEN 'Deceased'
