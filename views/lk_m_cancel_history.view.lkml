@@ -1,6 +1,6 @@
 view: lk_m_cancel_history {
     derived_table: { sql:
-      SELECT SELECT tia_reference,
+      SELECT tia_reference,
        tia_customer_no,
        tia_transaction_no,
        uw_policy_no,
