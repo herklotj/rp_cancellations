@@ -258,7 +258,7 @@ FROM (SELECT c.*,
               LEFT JOIN dbuser.lkr_motor_cancel_history b
                      ON a.tia_reference = b.tia_reference
                     AND a.annual_cover_start_dttm = b.annual_cover_start_dttm) c) d
-WHERE cancel_effective_dttm_t IS NOT null;
+WHERE cancel_effective_dttm_t IS NOT null
 
 
       ;;
