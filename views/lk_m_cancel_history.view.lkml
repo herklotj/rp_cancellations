@@ -240,7 +240,7 @@ FROM (SELECT c.*,
              END
       ) - annual_cover_start_dttm) /(annual_cover_end_dttm - annual_cover_start_dttm) AS time_on_risk
       FROM (SELECT a.*,
-               prem.*,
+              /* prem.*,*/
                    b.cancel_effective_dttm,
                    b.cancel_reason,
                    b.policy_cancel_date,
