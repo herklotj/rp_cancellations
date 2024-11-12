@@ -250,12 +250,12 @@ FROM (SELECT c.*,
                    b.policy_cancel_notified_yr,
                    b.cancel_cooling
             FROM (SELECT *
-                  FROM dbuser.lkr_motor_policy_history
+                  FROM lk_m_policy_history
                   WHERE schedule_cover_start_dttm = annual_cover_start_dttm
                   AND   cfi_ind = 0) a
-            join (select * from dbuser.lkr_motor_policy_history_premiums WHERE schedule_cover_start_dttm = annual_cover_start_dttm and cfi_ind = 0) prem
-            on prem.tia_reference = a.tia_reference and a.annual_cover_start_dttm = prem.annual_cover_start_dttm
-              LEFT JOIN dbuser.lkr_motor_cancel_history b
+            /*join (select * from dbuser.lkr_motor_policy_history_premiums WHERE schedule_cover_start_dttm = annual_cover_start_dttm and cfi_ind = 0) prem
+            on prem.tia_reference = a.tia_reference and a.annual_cover_start_dttm = prem.annual_cover_start_dttm*/
+              LEFT JOIN lk_m_cancel_history b
                      ON a.tia_reference = b.tia_reference
                     AND a.annual_cover_start_dttm = b.annual_cover_start_dttm) c) d
 WHERE cancel_effective_dttm_t IS NOT null
