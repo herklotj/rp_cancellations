@@ -3,7 +3,7 @@ view: lk_m_policy_history_written {
       sql:
 
           SELECT *
-          FROM lk_m_policy_history
+          FROM dbuser.lkr_motor_policy_history
           WHERE SCHEDULE_COVER_START_DTTM = ANNUAL_COVER_START_DTTM
           AND   CFI_IND = 0
           ;;

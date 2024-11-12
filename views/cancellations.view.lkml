@@ -47,13 +47,13 @@ view: cancellations {
                        END AS payment_method,
                        date_trunc('month',to_date (ps.term_inception_date)) AS incep_month,
                        start_date AS canc_date
-                FROM ice_aa_policy_summary ps
+                FROM dbuser.ice_aa_policy_summary ps
                   LEFT JOIN aauser.calendar c
                          ON date_trunc ('month',to_date (ps.term_inception_date)) <= c.start_date
                         AND c.start_date <= to_date (SYSDATE)
                         AND timestampdiff (MONTH,date_trunc ('month',to_date (ps.term_inception_date)),c.start_date) <= 12
                   LEFT JOIN v_ice_policy_origin v ON v.policy_reference_number = ps.policy_reference_number
-                  LEFT JOIN ice_dim_question_answer qa ON ps.policy_transaction_key = qa.policy_transaction_key
+                  LEFT JOIN dbuser.ice_dim_question_answer qa ON ps.policy_transaction_key = qa.policy_transaction_key
                 WHERE ps.policy_transaction_type IN ('NEW_BUSINESS','RENEWAL_ACCEPT')
                 AND   date_trunc('month',to_date(ps.term_inception_date)) <= to_date(SYSDATE)) c
             LEFT JOIN (SELECT scheme,
@@ -74,9 +74,9 @@ view: cancellations {
                               date_trunc('month',to_date (term_inception_date)) AS incep_month,
                               SUM(1) AS sale,
                               SUM(act_gross_premium_net_commission_txd_amt) AS sold_net_prem
-                       FROM ice_aa_policy_summary ps
+                       FROM dbuser.ice_aa_policy_summary ps
                          LEFT JOIN v_ice_policy_origin v ON v.policy_reference_number = ps.policy_reference_number
-                         LEFT JOIN ice_dim_question_answer qa ON ps.policy_transaction_key = qa.policy_transaction_key
+                         LEFT JOIN dbuser.ice_dim_question_answer qa ON ps.policy_transaction_key = qa.policy_transaction_key
                        WHERE policy_transaction_type IN ('NEW_BUSINESS','RENEWAL_ACCEPT')
                        GROUP BY scheme,
                                 CASE
@@ -124,9 +124,9 @@ view: cancellations {
                               SUM(CASE WHEN to_date (transaction_period_start_date) = to_date (term_inception_date) THEN 1 ELSE 0 END) AS CFI,
                               SUM(act_gross_premium_net_commission_txd_amt) AS all_cancelled_net_prem,
                               SUM(CASE WHEN to_date (transaction_period_start_date) = to_date (term_inception_date) THEN act_gross_premium_net_commission_txd_amt ELSE 0 END) AS cfi_cancelled_net_prem
-                       FROM ice_aa_policy_summary ps
+                       FROM dbuser.ice_aa_policy_summary ps
                          LEFT JOIN v_ice_policy_origin v ON v.policy_reference_number = ps.policy_reference_number
-                         LEFT JOIN ice_dim_question_answer qa ON ps.policy_transaction_key = qa.policy_transaction_key
+                         LEFT JOIN dbuser.ice_dim_question_answer qa ON ps.policy_transaction_key = qa.policy_transaction_key
                        WHERE policy_transaction_type IN ('CANCELLATION')
                        GROUP BY scheme,
                                 CASE
