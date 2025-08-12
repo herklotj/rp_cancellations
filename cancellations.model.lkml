@@ -1,4 +1,4 @@
-connection: "echo_aapricing"
+connection: "av2"
 
 # include all the views
 include: "/views/**/*.view"
